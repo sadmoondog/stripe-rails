@@ -7,7 +7,7 @@
   <%= form_tag submit_path, id: "stripe-form" do %>
     <%= label_tag :card_element, label_text %>
     <div id="card-element"><!-- A Stripe Element will be inserted here. --></div>
-    <%= submit_tag submit_button_text %>
+    <%= submit_tag submit_button_text, :id => "card-button", data: { secret: (@intent.client_secret rescue ''), email: (@data[:email] rescue '') } %>
   <% end %>
 </div>
 
