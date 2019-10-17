@@ -16,17 +16,28 @@ card.addEventListener('change', function(event) {
   }
 });
 
+
 var form = document.getElementById('stripe-form');
 form.addEventListener('submit', function(event) {
   event.preventDefault();
 
-  stripe.createToken(card).then(function(result) {
+  var cardButton = document.getElementById('card-button');
+  var clientSecret = cardButton.dataset.secret;
+  var clientEmail = cardButton.dataset.email;
+
+  stripe.handleCardPayment(
+      clientSecret, card, {
+        payment_method_data: {
+          billing_details: {name: clientEmail}
+        }
+      }
+  ).then(function(result) {
     if (result.error) {
-      // Inform the user if there was an error.
+      // Display error.message in your UI.
       var errorElement = document.getElementById('card-errors');
       errorElement.textContent = result.error.message;
     } else {
-      // Send the token to your server.
+      // The payment has succeeded. Display a success message.
       stripeTokenHandler(result.token);
     }
   });
