@@ -1,14 +1,13 @@
 <%= stylesheet_link_tag css_path, media: 'all' %>
 
 <div>
-  <div id="card-errors">
-  </div>
-
   <%= form_tag submit_path, id: "stripe-form" do %>
     <%= label_tag :card_element, label_text %>
     <div id="card-element"><!-- A Stripe Element will be inserted here. --></div>
     <%= submit_tag submit_button_text, :id => "card-button", data: { secret: (@intent.client_secret rescue ''), email: (@data[:email] rescue '') } %>
   <% end %>
+  <div id="card-errors">
+  </div>  
 </div>
 
 <script>
