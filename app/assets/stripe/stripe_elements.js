@@ -38,18 +38,18 @@ form.addEventListener('submit', function(event) {
       errorElement.textContent = result.error.message;
     } else {
       // The payment has succeeded. Display a success message.
-      stripeTokenHandler(result.token);
+      stripeTokenHandler(result);
     }
   });
 })
 
-function stripeTokenHandler(token) {
+function stripeTokenHandler(data) {
   // Insert the token ID into the form so it gets submitted to the server
   var form = document.getElementById('stripe-form');
   var hiddenInput = document.createElement('input');
   hiddenInput.setAttribute('type', 'hidden');
-  hiddenInput.setAttribute('name', 'stripeToken');
-  hiddenInput.setAttribute('value', token.id);
+  hiddenInput.setAttribute('name', 'stripeData');
+  hiddenInput.setAttribute('value', data);
   form.appendChild(hiddenInput);
 
   // Submit the form
